@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <EditText
+        android:id="@+id/goalTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Title" />
+
+    <EditText
+        android:id="@+id/goalAmount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Goal Amount"
+        android:inputType="numberDecimal" />
+
+    <EditText
+        android:id="@+id/currentAmount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Current Amount"
+        android:inputType="numberDecimal" />
+
+    <EditText
+        android:id="@+id/startDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Start Date"
+        android:focusable="false"
+        android:clickable="true"
+        android:inputType="none" />
+
+    <EditText
+        android:id="@+id/endDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="End Date"
+        android:focusable="false"
+        android:clickable="true"
+        android:inputType="none" />
+
+</LinearLayout>

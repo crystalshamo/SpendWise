@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="16dp"
+    android:gravity="center_vertical"
+    android:background="@drawable/goal_item_background">
+
+    <LinearLayout
+        android:id="@+id/goalTextContainer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingEnd="8dp">
+
+        <TextView
+            android:id="@+id/savedText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Saved: $0 / $0"
+            android:textAppearance="@android:style/TextAppearance.Medium"
+            android:textColor="@color/primary_blue"
+            android:paddingBottom="4dp" />
+
+        <TextView
+            android:id="@+id/dateText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="From 00/00/0000 to 00/00/0000"
+            android:textAppearance="@android:style/TextAppearance.Small"
+            android:textColor="@color/primary_blue"
+            android:paddingBottom="4dp" />
+
+        <TextView
+            android:id="@+id/remainingText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Remaining: $0.00"
+            android:textStyle="bold"
+            android:textAppearance="@android:style/TextAppearance.Medium"
+            android:textColor="@color/primary_blue"
+            android:paddingBottom="4dp" />
+
+        <TextView
+            android:id="@+id/moreInfoText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Save $0.00/day or $0.00/week or $0.00/month"
+            android:textColor="@color/primary_blue"
+            android:visibility="gone"
+            android:textAppearance="@android:style/TextAppearance.Small" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/editIcon"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:src="@drawable/ic_edit"
+        android:contentDescription="Edit"
+        android:tint="@color/primary_blue"
+        android:padding="4dp" />
+</LinearLayout>
