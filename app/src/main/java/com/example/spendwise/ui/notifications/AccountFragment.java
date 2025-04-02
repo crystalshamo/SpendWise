@@ -19,7 +19,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class NotificationsFragment extends Fragment {
+public class AccountFragment extends Fragment {
 
     public EditText firstNameField, lastNameField, emailField, passwordField;
     public ImageView editFirstName, editLastName, editPassword;

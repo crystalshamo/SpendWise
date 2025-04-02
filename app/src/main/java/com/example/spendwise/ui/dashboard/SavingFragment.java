@@ -23,7 +23,7 @@ import com.google.firebase.firestore.*;
 
 import java.util.*;
 
-public class DashboardFragment extends Fragment {
+public class SavingFragment extends Fragment {
 
     public FragmentDashboardBinding binding;
     public FirebaseFirestore db;
