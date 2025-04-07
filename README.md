@@ -37,4 +37,4 @@ SpendWise is an Android mobile application that helps users set savings goals, m
 
 1. **Clone this repository**
    ```bash
-   git clone [https://github.com/your-username/spendwise.git]
+   git clone https://github.com/crystalshamo/spendwise.git
