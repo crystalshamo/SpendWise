@@ -18,8 +18,8 @@ SpendWise is an Android mobile application that helps users set savings goals, m
 - Secure user authentication with Firebase
 - Add and track savings goals with target amounts and deadlines
 - Log income and expenses across categories
-- Visualize spending with dynamic pie charts
-- Calendar-style or List View of transaction history
+- Visualize spending with pie charts
+- List View of transaction history
 - Edit profile information including email and password
 - Real-time updates using Firebase Firestore
 
