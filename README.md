@@ -1,8 +1,14 @@
 # SpendWise – Personal Finance Tracker App
-<p align="center">
-  <<p align="center">
-  <img src="icon.png" alt="SpendWise Logo" width="120"/>
-</p>
+[Uploadi<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>URL</key>
+	<string>file:/Users/crystalshamo/AndroidStudioProjects/SpendWise_/app/src/main/res/drawable/img_5783.png</string>
+</dict>
+</plist>
+ng Users:.fileloc…]()
+
 </p>
 SpendWise is an Android mobile application that helps users set savings goals, manage budgets, track expenses, and visualize their financial progress. It was developed with a focus on clean UI, Firebase integration, and thorough software testing practices.
 
