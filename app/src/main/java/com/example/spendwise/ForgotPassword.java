@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -36,11 +37,13 @@ public class ForgotPassword extends AppCompatActivity {
         restPasswordBtn.setOnClickListener(v -> restPassword());
     }
 
-    // reset password by sending email to account email registered
     public void restPassword() {
         String emailAddress = emailEditText.getText().toString().trim();
 
-        if (emailAddress.isEmpty()) return;
+        if (emailAddress.isEmpty()) {
+            Toast.makeText(ForgotPassword.this, "Please enter your email", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         progressBar.setVisibility(View.VISIBLE);
 
@@ -48,7 +51,10 @@ public class ForgotPassword extends AppCompatActivity {
                 .addOnCompleteListener(task -> {
                     progressBar.setVisibility(View.GONE);
                     if (task.isSuccessful()) {
+                        Toast.makeText(ForgotPassword.this, "Reset link sent to your email", Toast.LENGTH_LONG).show();
                         finish();
+                    } else {
+                        Toast.makeText(ForgotPassword.this, "Invalid email or user not found", Toast.LENGTH_SHORT).show();
                     }
                 });
     }

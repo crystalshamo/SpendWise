@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -64,13 +65,19 @@ public class LoginActivity extends AppCompatActivity {
     public void login() {
         String user = email.getText().toString().trim();
         String pass = password.getText().toString().trim();
-        if (user.isEmpty() || pass.isEmpty()) return;
+        if (user.isEmpty() || pass.isEmpty()) {
+            Toast.makeText(LoginActivity.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         mAuth.signInWithEmailAndPassword(user, pass)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
                         finish();
+                    } else {
+                        // Show a toast for incorrect credentials
+                        Toast.makeText(LoginActivity.this, "Incorrect email or password", Toast.LENGTH_SHORT).show();
                     }
                 });
     }

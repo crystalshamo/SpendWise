@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
@@ -24,7 +24,7 @@ public class AccountFragment extends Fragment {
     public EditText firstNameField, lastNameField, emailField, passwordField;
     public ImageView editFirstName, editLastName, editPassword;
     public Button updateBtn;
-
+    public boolean wasUpdateCalled = false;
     public FirebaseAuth mAuth;
     public FirebaseFirestore db;
     public DocumentReference userRef;
@@ -82,7 +82,10 @@ public class AccountFragment extends Fragment {
         String firstName = firstNameField.getText().toString().trim();
         String lastName = lastNameField.getText().toString().trim();
 
-        if (firstName.isEmpty() || lastName.isEmpty()) return;
+        if (firstName.isEmpty() || lastName.isEmpty()) {
+            Toast.makeText(getContext(), "First name and last name cannot be empty", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         if (userRef != null) {
             userRef.update(
@@ -91,6 +94,9 @@ public class AccountFragment extends Fragment {
             ).addOnSuccessListener(aVoid -> {
                 firstNameField.setEnabled(false);
                 lastNameField.setEnabled(false);
+                Toast.makeText(getContext(), "Profile updated successfully", Toast.LENGTH_SHORT).show();
+            }).addOnFailureListener(e -> {
+                Toast.makeText(getContext(), "Update failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             });
         }
     }
@@ -108,18 +114,35 @@ public class AccountFragment extends Fragment {
                     String current = currentPass.getText().toString();
                     String newP = newPass.getText().toString();
 
-                    if (newP.length() < 6) return;
+                    if (newP.length() < 6) {
+                        Toast.makeText(getContext(), "New password must be at least 6 characters", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
 
                     FirebaseUser user = mAuth.getCurrentUser();
                     if (user != null && user.getEmail() != null) {
                         user.reauthenticate(EmailAuthProvider.getCredential(user.getEmail(), current))
                                 .addOnSuccessListener(unused -> {
                                     user.updatePassword(newP)
-                                            .addOnSuccessListener(aVoid -> passwordField.setText("********"));
+                                            .addOnSuccessListener(aVoid -> {
+                                                passwordField.setText("********");
+                                                Toast.makeText(getContext(), "Password updated successfully", Toast.LENGTH_SHORT).show();
+                                            })
+                                            .addOnFailureListener(e -> {
+                                                Toast.makeText(getContext(), "Failed to update password", Toast.LENGTH_SHORT).show();
+                                            });
+                                })
+                                .addOnFailureListener(e -> {
+                                    Toast.makeText(getContext(), "Incorrect current password", Toast.LENGTH_SHORT).show();
                                 });
                     }
                 })
                 .setNegativeButton("Cancel", null)
                 .show();
+    }
+    // Used for Junit Testing to simulate a profile being updated
+    public void simulateProfileUpdated() {
+        if (firstNameField != null) firstNameField.setEnabled(false);
+        if (lastNameField != null) lastNameField.setEnabled(false);
     }
 }

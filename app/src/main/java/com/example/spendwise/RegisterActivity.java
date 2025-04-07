@@ -8,6 +8,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.util.Patterns;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -64,13 +69,27 @@ public class RegisterActivity extends AppCompatActivity {
                 startActivity(new Intent(RegisterActivity.this, LoginActivity.class)));
     }
 
+
     public void registerUser() {
         String fName = firstName.getText().toString().trim();
         String lName = lastName.getText().toString().trim();
         String userEmail = email.getText().toString().trim();
         String userPass = password.getText().toString().trim();
 
-        if (fName.isEmpty() || lName.isEmpty() || userEmail.isEmpty() || userPass.isEmpty()) return;
+        if (fName.isEmpty() || lName.isEmpty() || userEmail.isEmpty() || userPass.isEmpty()) {
+            Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (!Patterns.EMAIL_ADDRESS.matcher(userEmail).matches()) {
+            Toast.makeText(this, "Invalid email format", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (userPass.length() < 6) {
+            Toast.makeText(this, "Password must be at least 6 characters", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         mAuth.createUserWithEmailAndPassword(userEmail, userPass)
                 .addOnCompleteListener(task -> {
@@ -86,11 +105,24 @@ public class RegisterActivity extends AppCompatActivity {
                             db.collection("users").document(uid)
                                     .set(userData)
                                     .addOnSuccessListener(aVoid -> {
+                                        Toast.makeText(this, "Account created successfully", Toast.LENGTH_LONG).show();
                                         startActivity(new Intent(this, MainActivity.class));
                                         finish();
                                     });
                         }
+                    } else {
+                        Exception e = task.getException();
+                        if (e instanceof FirebaseAuthWeakPasswordException) {
+                            Toast.makeText(this, "Password is too weak", Toast.LENGTH_SHORT).show();
+                        } else if (e instanceof FirebaseAuthInvalidCredentialsException) {
+                            Toast.makeText(this, "Invalid email format", Toast.LENGTH_SHORT).show();
+                        } else if (e instanceof FirebaseAuthUserCollisionException) {
+                            Toast.makeText(this, "This email is already registered", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(this, "Registration failed: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
                     }
                 });
     }
+
 }

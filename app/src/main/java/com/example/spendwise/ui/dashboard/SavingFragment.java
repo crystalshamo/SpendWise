@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import androidx.annotation.NonNull;
+import androidx.collection.ArraySet;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -31,6 +32,7 @@ public class SavingFragment extends Fragment {
     public String selectedMonth = "All";
     public ArrayAdapter<String> monthAdapter;
     public RecyclerView transactionList;
+    public ArraySet<Object> transactionItems;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,

@@ -86,7 +86,7 @@ public class BudgetFragment extends Fragment {
                 })
                 .addOnFailureListener(e -> {
                     if (isAdded()) {
-                        Toast.makeText(requireContext(), "Failed to load goals", Toast.LENGTH_SHORT).show();
+                       //  Toast.makeText(requireContext(), "Failed to load goals", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -222,6 +222,7 @@ public class BudgetFragment extends Fragment {
     }
 
     // Handles + button to add new goals
+// Handles + button to add new goals
     public void addGoalDialog() {
         View dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_add_goal, null);
         EditText title = dialogView.findViewById(R.id.goalTitle);
@@ -237,23 +238,48 @@ public class BudgetFragment extends Fragment {
                 .setTitle("New Saving Goal")
                 .setView(dialogView)
                 .setPositiveButton("Save", (dialog, which) -> {
-                    HashMap<String, Object> data = new HashMap<>();
-                    data.put("title", title.getText().toString());
-                    data.put("goalAmount", goalAmount.getText().toString());
-                    data.put("currentAmount", currentAmount.getText().toString());
-                    data.put("startDate", startDate.getText().toString());
-                    data.put("endDate", endDate.getText().toString());
-                    data.put("userId", userId);
+                    String titleStr = title.getText().toString().trim();
+                    String goalStr = goalAmount.getText().toString().trim();
+                    String currentStr = currentAmount.getText().toString().trim();
+                    String startStr = startDate.getText().toString().trim();
+                    String endStr = endDate.getText().toString().trim();
 
-                    db.collection("savings").add(data)
-                            .addOnSuccessListener(doc -> {
-                                Toast.makeText(requireContext(), "Saved!", Toast.LENGTH_SHORT).show();
-                                loadGoals();
-                            });
+                    // Basic empty field validation (optional but recommended)
+                    if (titleStr.isEmpty() || goalStr.isEmpty() || currentStr.isEmpty() || startStr.isEmpty() || endStr.isEmpty()) {
+                        Toast.makeText(requireContext(), "Please fill in all fields.", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    try {
+                        Date start = dateFormat.parse(startStr);
+                        Date end = dateFormat.parse(endStr);
+
+                        if (start != null && end != null && end.before(start)) {
+                            Toast.makeText(requireContext(), "End date cannot be before start date.", Toast.LENGTH_LONG).show();
+                            return;
+                        }
+
+                        HashMap<String, Object> data = new HashMap<>();
+                        data.put("title", titleStr);
+                        data.put("goalAmount", goalStr);
+                        data.put("currentAmount", currentStr);
+                        data.put("startDate", startStr);
+                        data.put("endDate", endStr);
+                        data.put("userId", userId);
+
+                        db.collection("savings").add(data)
+                                .addOnSuccessListener(doc -> {
+                                    Toast.makeText(requireContext(), "Saved!", Toast.LENGTH_SHORT).show();
+                                    loadGoals();
+                                });
+                    } catch (Exception e) {
+                        Toast.makeText(requireContext(), "Invalid date format.", Toast.LENGTH_SHORT).show();
+                    }
                 })
                 .setNegativeButton("Cancel", null)
                 .show();
     }
+
 
     // Date picker for start and end dates
     public void datePickerDialog(EditText targetField) {
