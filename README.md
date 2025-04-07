@@ -27,7 +27,6 @@ SpendWise is an Android mobile application that helps users set savings goals, m
 - **Frontend:** Java (Android SDK)
 - **Backend:** Firebase Firestore & Firebase Authentication
 - **Testing:** JUnit, Robolectric (unit and black box testing)
-- **Database (Local):** SQLite (for offline features in progress)
 - **Tools:** Android Studio, Firebase Console, Android Emulator
 
 ---
