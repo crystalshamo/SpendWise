@@ -36,7 +36,7 @@ SpendWise is an Android mobile application that helps users set savings goals, m
 
 ##  How to Run the App
 
-> ⚠**Important Note:** This project requires [Android Studio](https://developer.android.com/studio) to run. The `google-services.json` file and API keys have been removed from the public repo for security. You'll need to connect your own Firebase project to run the app locally.
+> **Important Note:** This project requires [Android Studio](https://developer.android.com/studio) to run. The `google-services.json` file and API keys have been removed from the public repo for security. You'll need to connect your own Firebase project to run the app locally.
 
 **Step-by-Step Setup**
 
