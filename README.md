@@ -1,6 +1,6 @@
 # 💰 SpendWise – Personal Finance Tracker App
 
-SpendWise is an Android mobile application that helps users set savings goals, manage budgets, track expenses, and visualize their financial progress. It was developed as a graduate-level project for CSI-5370: Software Verification and Testing.
+SpendWise is an Android mobile application that helps users set savings goals, manage budgets, track expenses, and visualize their financial progress. 
 
 ---
 
