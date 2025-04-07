@@ -42,7 +42,7 @@ SpendWise is an Android mobile application that helps users set savings goals, m
 
 1. **Install Android Studio**  
    Download and install Android Studio if you haven't already:  
-   👉 [https://developer.android.com/studio](https://developer.android.com/studio)
+    [https://developer.android.com/studio](https://developer.android.com/studio)
 
 2. **Clone this repository**  
    Open a terminal and run:
