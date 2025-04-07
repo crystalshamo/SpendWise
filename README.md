@@ -1,28 +1,28 @@
-# SpendWise – Personal Finance Tracker App
+# 💰 SpendWise – Personal Finance Tracker App
 
-SpendWise is an Android mobile application that helps users set savings goals, manage budgets, track expenses, and visualize their financial progress. 
+SpendWise is an Android mobile application that helps users set savings goals, manage budgets, track expenses, and visualize their financial progress. It was developed with a focus on clean UI, Firebase integration, and thorough software testing practices.
 
 ---
 
-## Demo Video
+## 🎥 Demo Video
 
 [Click here to watch the demo video](DEMO LINK)
 
 ---
 
-## Features
+## 📱 Features
 
-- Secure user authentication with Firebase
-- Add and track savings goals with target amounts and deadlines
-- Log income and expenses across categories
-- Visualize spending with dynamic pie charts
-- Calendar-style view of transaction history
-- Edit profile information including email and password
-- Real-time updates using Firebase Firestore
+- 🔐 Secure user authentication with Firebase
+- 🎯 Add and track savings goals with target amounts and deadlines
+- 🧾 Log income and expenses across categories
+- 📊 Visualize spending with dynamic pie charts
+- 📅 Calendar-style view of transaction history
+- ✏️ Edit profile information including email and password
+- 🔁 Real-time updates using Firebase Firestore
 
 ---
 
-## Technologies Used
+## 🛠️ Technologies Used
 
 - **Frontend:** Java (Android SDK)
 - **Backend:** Firebase Firestore & Firebase Authentication
@@ -31,10 +31,16 @@ SpendWise is an Android mobile application that helps users set savings goals, m
 
 ---
 
-## How to Run the App
+## 🚀 How to Run the App
 
->  **Important Note:** For security reasons, the `google-services.json` file and API keys have been removed from this public version. You can still view the full source code and UI, but you will need to connect your own Firebase project to run the app.
+> ⚠️ **Important Note:** This project requires [Android Studio](https://developer.android.com/studio) to run. The `google-services.json` file and API keys have been removed from the public repo for security. You'll need to connect your own Firebase project to run the app locally.
 
-1. **Clone this repository**
+### Step-by-Step Setup
+
+1. **Install Android Studio**  
+   Download and install Android Studio if you haven't already:  
+   👉 [https://developer.android.com/studio](https://developer.android.com/studio)
+
+2. **Clone this repository**  
    ```bash
    git clone https://github.com/crystalshamo/spendwise.git
