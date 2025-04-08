@@ -9,7 +9,7 @@ SpendWise is an Android mobile application that helps users set savings goals, m
 
 ## Demo Video
 
-[Click here to watch the demo video](DEMO LINK)
+https://www.youtube.com/watch?v=oMcLRwakeI4
 
 ---
 
