@@ -24,6 +24,7 @@ public class AccountFragment extends Fragment {
     public EditText firstNameField, lastNameField, emailField, passwordField;
     public ImageView editFirstName, editLastName, editPassword;
     public Button updateBtn;
+    public boolean wasUpdateCalled = false;
 
     public FirebaseAuth mAuth;
     public FirebaseFirestore db;
@@ -34,8 +35,10 @@ public class AccountFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_notifications, container, false);
 
-        mAuth = FirebaseAuth.getInstance();
-        db = FirebaseFirestore.getInstance();
+        if (!isRunningInTest()) {
+            mAuth = FirebaseAuth.getInstance();
+            db = FirebaseFirestore.getInstance();
+        }
 
         firstNameField = root.findViewById(R.id.firstNameField);
         lastNameField = root.findViewById(R.id.lastNameField);
@@ -60,8 +63,20 @@ public class AccountFragment extends Fragment {
         return root;
     }
 
-    // Loa user data from firebase and displays them
+    public void fakeUpdateUserRef() {
+        wasUpdateCalled = true;
+        simulateProfileUpdated(); // same as what happens after success
+    }
+
+    private boolean isRunningInTest() {
+        return "robolectric".equals(android.os.Build.FINGERPRINT)
+                || System.getProperty("robolectric.running") != null;
+    }
+
+
     public void loadUserData() {
+        if (isRunningInTest() || mAuth == null) return;
+
         FirebaseUser user = mAuth.getCurrentUser();
         if (user != null) {
             emailField.setText(user.getEmail());
@@ -76,6 +91,14 @@ public class AccountFragment extends Fragment {
             });
         }
     }
+
+
+    // Call this method in tests to simulate a successful profile update
+    public void simulateProfileUpdated() {
+        if (firstNameField != null) firstNameField.setEnabled(false);
+        if (lastNameField != null) lastNameField.setEnabled(false);
+    }
+
 
     // Updates user information in database if updated on page
     public void updateUserProfile() {

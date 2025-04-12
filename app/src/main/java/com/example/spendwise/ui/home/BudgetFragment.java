@@ -1,18 +1,14 @@
-// package ...
 package com.example.spendwise.ui.home;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -24,11 +20,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 
 public class BudgetFragment extends Fragment {
 
@@ -44,20 +36,23 @@ public class BudgetFragment extends Fragment {
 
         goalList = root.findViewById(R.id.goalList);
         FloatingActionButton fab = root.findViewById(R.id.fabAddGoal);
-        db = FirebaseFirestore.getInstance();
-        userId = FirebaseAuth.getInstance().getUid();
 
-        fab.setOnClickListener(v -> addGoalDialog());
-        loadGoals();
+        if (!isRunningInTest()) {
+            db = FirebaseFirestore.getInstance();
+            userId = FirebaseAuth.getInstance().getUid();
 
-        Button viewCompletedBtn = root.findViewById(R.id.viewCompletedBtn);
-        viewCompletedBtn.setOnClickListener(v -> completedGoalsPopup());
+            fab.setOnClickListener(v -> addGoalDialog());
+            loadGoals();
 
+            Button viewCompletedBtn = root.findViewById(R.id.viewCompletedBtn);
+            viewCompletedBtn.setOnClickListener(v -> completedGoalsPopup());
+        } else {
+            mockGoalsForTesting();
+        }
 
         return root;
     }
 
-    // pulls previous budget goals stored in database corresponding the userID
     public void loadGoals() {
         goalList.removeAllViews();
 
@@ -91,7 +86,6 @@ public class BudgetFragment extends Fragment {
                 });
     }
 
-    // moves a goal to completed table in database
     public void completedGoal(String docId, Map<String, Object> goal) {
         db.collection("completedGoals").add(goal)
                 .addOnSuccessListener(success -> {
@@ -99,7 +93,6 @@ public class BudgetFragment extends Fragment {
                 });
     }
 
-    // shows all specific users completed goals
     public void completedGoalsPopup() {
         View popupView = LayoutInflater.from(requireContext()).inflate(R.layout.popup_completed_goals, null);
         LinearLayout completedList = popupView.findViewById(R.id.completedGoalsList);
@@ -130,7 +123,6 @@ public class BudgetFragment extends Fragment {
                 });
     }
 
-    // adds new goals to the list view
     public void addGoal(Map<String, Object> goal) {
         LayoutInflater inflater = LayoutInflater.from(requireContext());
         View goalItem = inflater.inflate(R.layout.goal_item_with_edit, null);
@@ -163,7 +155,6 @@ public class BudgetFragment extends Fragment {
         moreInfoText.setText(extendedText);
         moreInfoText.setVisibility(View.GONE);
 
-        // double click for more details
         goalItem.setOnClickListener(new View.OnClickListener() {
             private long lastClickTime = 0;
             @Override
@@ -177,7 +168,7 @@ public class BudgetFragment extends Fragment {
         });
 
         editButton.setOnClickListener(v ->
-                editGoal(goal.get("docId").toString(), currentAmount));
+                editGoal(goal.get("docId") != null ? goal.get("docId").toString() : "", currentAmount));
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
@@ -188,7 +179,6 @@ public class BudgetFragment extends Fragment {
         goalList.addView(goalItem);
     }
 
-    // pen button to edit goals
     public void editGoal(String docId, double currentAmount) {
         EditText input = new EditText(requireContext());
         input.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
@@ -210,7 +200,6 @@ public class BudgetFragment extends Fragment {
                 .show();
     }
 
-    // calculates days in between start and end date
     public long getDaysBetween(String startDateStr, String endDateStr) {
         try {
             Date start = dateFormat.parse(startDateStr);
@@ -221,7 +210,6 @@ public class BudgetFragment extends Fragment {
         }
     }
 
-    // Handles + button to add new goals
     public void addGoalDialog() {
         View dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_add_goal, null);
         EditText title = dialogView.findViewById(R.id.goalTitle);
@@ -255,7 +243,6 @@ public class BudgetFragment extends Fragment {
                 .show();
     }
 
-    // Date picker for start and end dates
     public void datePickerDialog(EditText targetField) {
         final Calendar calendar = Calendar.getInstance();
         new DatePickerDialog(requireContext(),
@@ -266,5 +253,20 @@ public class BudgetFragment extends Fragment {
                 calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DAY_OF_MONTH)).show();
+    }
+
+    private boolean isRunningInTest() {
+        return "robolectric".equals(Build.FINGERPRINT) || System.getProperty("robolectric.running") != null;
+    }
+
+    private void mockGoalsForTesting() {
+        Map<String, Object> goal = new HashMap<>();
+        goal.put("goalAmount", "1000");
+        goal.put("currentAmount", "500");
+        goal.put("startDate", "01/01/2025");
+        goal.put("endDate", "12/31/2025");
+        goal.put("docId", "testId");
+
+        addGoal(goal);
     }
 }

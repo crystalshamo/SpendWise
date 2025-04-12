@@ -68,11 +68,6 @@
                     android:padding="24dp"
                     android:gravity="center">
 
-                    <com.example.spendwise.PieChartView
-                        android:id="@+id/nativePieChart"
-                        android:layout_width="280dp"
-                        android:layout_height="280dp"
-                        android:layout_marginBottom="8dp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 

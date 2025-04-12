@@ -47,7 +47,10 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         if (expanded.contains(category)) {
             for (TransactionItem item : groupedData.get(category)) {
                 TextView tx = new TextView(holder.itemView.getContext());
-                tx.setText(String.format("• $%.2f on %s\n%s", item.amount, item.date, item.description));
+                tx.setText(String.format("• $%.2f on %s\n%s",
+                        item.getAmount(),
+                        item.getDate(),
+                        item.getDescription()));
                 tx.setPadding(32, 8, 8, 16);
                 holder.detailLayout.addView(tx);
             }

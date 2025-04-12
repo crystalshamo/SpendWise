@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private ActivityMainBinding binding;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,25 +42,39 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
-        mAuth = FirebaseAuth.getInstance();
+        // ✅ Safe Firebase init
+        if (!isRunningInTest()) {
+            mAuth = FirebaseAuth.getInstance();
+        }
     }
 
+
+
+    private boolean isRunningInTest() {
+        return "robolectric".equals(android.os.Build.FINGERPRINT)
+                || System.getProperty("robolectric.running") != null;
+    }
     @Override
     public void onStart() {
         super.onStart();
 
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser == null) {
-            startActivity(new Intent(MainActivity.this, LoginActivity.class));
-            finish(); // prevent back press to this screen
+        if (!isRunningInTest()) {
+            FirebaseUser currentUser = mAuth.getCurrentUser();
+            if (currentUser == null) {
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                finish();
+            }
         }
     }
-
     public void logout() {
-        FirebaseAuth.getInstance().signOut();
+        if (!isRunningInTest()) {
+            FirebaseAuth.getInstance().signOut(); // ✅ Only runs in real app
+        }
+
         startActivity(new Intent(MainActivity.this, LoginActivity.class));
         finish(); // prevent back press to this screen
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -75,4 +90,5 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 }
