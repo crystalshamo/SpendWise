@@ -18,7 +18,7 @@ SpendWise is an Android budgeting app designed to help users manage their financ
 
 ##  Demo
 
-Check out a quick walkthrough of SpendWise:  
+Check out SpendWise:  
 [🔗 Click here to view the demo](https://www.youtube.com/watch?v=oMcLRwakeI4&t=36s)
 
 ##  Testing
