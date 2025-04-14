@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="logo.png" alt="SpendWise Logo" width="200"/>
+</p>
+
 # SpendWise
 
 SpendWise is an Android budgeting app designed to help users manage their finances by setting saving goals, tracking expenses, and viewing insightful visualizations. The app emphasizes usability, clean UI, and robust testing practices to ensure a smooth user experience.
