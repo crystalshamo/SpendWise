@@ -24,7 +24,15 @@ This app uses a combination of:
 - **Robolectric** for Android component testing
 - **Manual Black-box Testing** for UI and functional flows
 
-Success rate of white-box testing: 91.7% (22/24 test cases passed, 2 fixed)
+### Results:
+- ✅ **White-box Testing**: 24 test cases total  
+  • Passed: 22  
+  • Fixed & passed after bug fix: 2  
+  • **Success Rate: 100%**
+
+- ✅ **Black-box Testing**: 10 functional tests  
+  • All passed with expected outputs  
+  • **Success Rate: 100%**
 
 ##  Tech Stack
 
