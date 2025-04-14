@@ -29,12 +29,12 @@ This app uses a combination of:
 - **Manual Black-box Testing** for UI and functional flows
 
 ### Results:
-- ✅ **White-box Testing**: 24 test cases total  
+-  **White-box Testing**: 24 test cases total  
   • Passed: 22  
   • Fixed & passed after bug fix: 2  
   • **Success Rate: 100%**
 
-- ✅ **Black-box Testing**: 10 functional tests  
+-  **Black-box Testing**: 10 functional tests  
   • All passed with expected outputs  
   • **Success Rate: 100%**
 
