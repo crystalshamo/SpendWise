@@ -52,4 +52,3 @@ This app uses a combination of:
 
 Crystal Shamo  
 Senior Computer Science Student, Oakland University  
-✨ Passionate about testing & modern mobile apps
