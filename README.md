@@ -44,6 +44,13 @@ This app uses a combination of:
 - Firebase Firestore & Auth
 - JUnit + Robolectric
 
+## Getting Started
+
+To run SpendWise on your device:
+
+1. **Clone the project**
+   ```bash
+   git clone https://github.com/crystalshamo/SpendWise.git
 
 ##  Future Improvements
 
